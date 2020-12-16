@@ -257,12 +257,12 @@ ngx_http_cookie_flag_filter_append(ngx_http_request_t *r, ngx_http_cookie_t *coo
         header->value.len = tmp.len;
     }
 
-    if (cookie->samesite == 1 && ngx_strcasestrn(header->value.data, "; SameSite", 10 - 1) == NULL) {
-        tmp.data = ngx_pnalloc(r->pool, header->value.len + sizeof("; SameSite") - 1);
+    if (cookie->samesite == 1 && ngx_strcasestrn(header->value.data, "; SameSite=None", 15 - 1) == NULL) {
+        tmp.data = ngx_pnalloc(r->pool, header->value.len + sizeof("; SameSite=None") - 1);
         if (tmp.data == NULL) {
             return NGX_ERROR;
         }
-        tmp.len = ngx_sprintf(tmp.data, "%V; SameSite", &header->value) - tmp.data;
+        tmp.len = ngx_sprintf(tmp.data, "%V; SameSite=None", &header->value) - tmp.data;
         header->value.data = tmp.data;
         header->value.len = tmp.len;
     }
